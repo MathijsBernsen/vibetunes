@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Album;
+use App\Models\Category;
+use App\Models\Playlist;
 use App\Models\Song;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SongController extends Controller
 {
@@ -21,7 +25,13 @@ class SongController extends Controller
      */
     public function create()
     {
-        //
+
+        $albums = Album::all();
+        $categories = Category::all();
+        $playlists = Playlist::all();
+
+        return view('songs.create', compact('albums', 'categories', 'playlists'));
+
     }
 
     /**
@@ -29,7 +39,31 @@ class SongController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Log::debug('Request data:', $request->all());
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'duration' => 'required|integer',
+            'album_id' => 'required|exists:albums,id',
+            'release_date' => 'required|date',
+            'categories' => 'array',
+            'categories.*' => 'exists:categories,id',
+            'playlists' => 'array',
+            'playlists.*' => 'exists:playlists,id',
+        ]);
+
+        $song = Song::create($validated);
+
+        if (!empty($validated['categories'])) {
+            $song->categories()->attach($validated['categories']);
+        }
+        if (!empty($validated['playlists'])) {
+            $song->playlists()->attach($validated['playlists']);
+        }
+
+        Log::debug('Validated data:', $validated);
+
+        return redirect()->route('songs.index');
     }
 
     /**
@@ -45,7 +79,15 @@ class SongController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+        $song = Song::with(['categories', 'album', 'playlists'])->findOrFail($id);
+
+        $albums = Album::all();
+        $categories = Category::all();
+        $playlists = Playlist::all();
+
+        return view('songs.edit', compact('song', 'albums', 'categories', 'playlists'));
+
     }
 
     /**
@@ -53,7 +95,24 @@ class SongController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'duration' => 'required|integer',
+            'album_id' => 'required|exists:albums,id',
+            'release_date' => 'required|date',
+            'categories' => 'array',
+            'categories.*' => 'exists:categories,id',
+            'playlists' => 'array',
+            'playlists.*' => 'exists:playlists,id',
+        ]);
+
+        $song = Song::findOrFail($id);
+        $song->update($validated);
+
+        $song->categories()->sync($validated['categories'] ?? []);
+        $song->playlists()->sync($validated['playlists'] ?? []);
+
+        return redirect()->route('songs.index');
     }
 
     /**

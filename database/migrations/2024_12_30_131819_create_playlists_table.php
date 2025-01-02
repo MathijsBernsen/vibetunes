@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('playlists', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('total_duration');
+            $table->integer('total_duration')->nullable();
             $table->timestamps();
         });
     }

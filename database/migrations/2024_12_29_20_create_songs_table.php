@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('duration');
-            $table->foreignId('album_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('album_id')->nullable()->constrained()->cascadeOnDelete();
             $table->date('release_date');
             $table->timestamps();
         });

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SongController;
 use Illuminate\Support\Facades\Route;
@@ -17,8 +18,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::resource('songs', SongController::class);
-    Route::resource('albums', AlbumController::class);
+    Route::resource('songs', SongController::class)->except(['show']);
+    Route::resource('albums', AlbumController::class)->except(['show']);
+    Route::resource('playlists', PLaylistController::class)->except(['show']);
 });
 
 

@@ -20,43 +20,38 @@
 
 
             <div class="flex items-center justify-between p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <h1 class="text-2xl font-bold">Songs</h1>
-                <a href="{{ route('songs.create') }}"
+                <h1 class="text-2xl font-bold">Albums</h1>
+                <a href="{{ route('albums.create') }}"
                    class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded">
-                    Add Song
+                    Add Album
                 </a>
             </div>
 
             <!-- Songs List -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach($songs as $song)
+                @foreach($albums as $album)
                     <div class="p-6 bg-white shadow sm:rounded-lg">
-                        <h2 class="text-lg font-semibold text-indigo-600">{{ $song->name }}</h2>
+                        <h2 class="text-lg font-semibold text-indigo-600">{{ $album->name }}</h2>
                         <p class="text-gray-700">
-                            <strong>Album:</strong> {{ $song->album->name ?? 'No Album' }}
+                            <strong>Total duration:</strong> {{ $album->duration . " (minutes)" ?? 'Unknown' }}
                         </p>
                         <p class="text-gray-700">
-                            <strong>Categories:</strong>
-                            @forelse($song->categories as $category)
-                                {{ $category->name }}{{ !$loop->last ? ', ' : '' }}
-                            @empty
-                                None
-                            @endforelse
+                            <strong>Release date:</strong> {{ $album->release_date ?? 'Unknown' }}
                         </p>
                         <p class="text-gray-700">
-                            <strong>Playlists:</strong>
-                            @forelse($song->playlists as $playlist)
-                                {{ $playlist->name }}{{ !$loop->last ? ', ' : '' }}
+                            <strong>Songs:</strong>
+                            @forelse($album->songs as $song)
+                                {{ $song->name }}{{ !$loop->last ? ', ' : '' }}
                             @empty
                                 None
                             @endforelse
                         </p>
                         <div class="mt-4">
 
-                            <form action="{{ route('songs.destroy', $song) }}" method="POST" class="flex gap-2">
+                            <form action="{{ route('albums.destroy', $album) }}" method="POST" class="flex gap-2">
                                 @csrf
                                 @method('DELETE')
-                                <a href="{{ route('songs.edit', $song) }}"
+                                <a href="{{ route('albums.edit', $album) }}"
                                    class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded">Edit</a>
                                 <button type="submit"
                                         class="bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">

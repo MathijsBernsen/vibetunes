@@ -39,7 +39,6 @@ class SongController extends Controller
      */
     public function store(Request $request)
     {
-        Log::debug('Request data:', $request->all());
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -60,8 +59,6 @@ class SongController extends Controller
         if (!empty($validated['playlists'])) {
             $song->playlists()->attach($validated['playlists']);
         }
-
-        Log::debug('Validated data:', $validated);
 
         return redirect()->route('songs.index');
     }
@@ -120,6 +117,17 @@ class SongController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $song = Song::find($id);
+
+        if ($song === null) {
+            return redirect()->route('songs.index')->with('error', 'Song not found');
+        }
+
+        $song->categories()->detach();
+        $song->playlists()->detach();
+
+        $song->delete();
+
+        return redirect()->route('songs.index') ->with('success', 'Song deleted successfully');
     }
 }

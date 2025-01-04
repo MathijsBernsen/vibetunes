@@ -1,16 +1,13 @@
 <?php
 
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SongController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -21,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('songs', SongController::class)->except(['show']);
     Route::resource('albums', AlbumController::class)->except(['show']);
     Route::resource('playlists', PLaylistController::class)->except(['show']);
+    Route::resource('categories', CategoryController::class)->except(['show']);
 });
 
 

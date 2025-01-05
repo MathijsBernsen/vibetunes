@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,6 +24,7 @@ class EventFactory extends Factory
             'name' => $faker->sentence,
             'location' => $faker->address,
             'ticket_url' => $faker->url,
+            'user_id' => User::inRandomOrder()->first()->id ?? User::factory(),
         ];
     }
 }

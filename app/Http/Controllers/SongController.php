@@ -16,8 +16,7 @@ class SongController extends Controller
      */
     public function index()
     {
-
-        return view('songs.index', ['songs' => Song::with(['categories', 'album', 'playlists'])->get()]);
+        return view('songs.index', ['songs' => Song::with(['categories', 'album', 'playlists'])->where('user_id', auth()->id())->get()]);
     }
 
     /**
@@ -26,9 +25,9 @@ class SongController extends Controller
     public function create()
     {
 
-        $albums = Album::all();
-        $categories = Category::all();
-        $playlists = Playlist::all();
+        $albums = Album::where('user_id', auth()->id())->get();
+        $categories = Category::where('user_id', auth()->id())->get();
+        $playlists = Playlist::where('user_id', auth()->id())->get();
 
         return view('songs.create', compact('albums', 'categories', 'playlists'));
 
@@ -64,14 +63,6 @@ class SongController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
@@ -79,9 +70,9 @@ class SongController extends Controller
 
         $song = Song::with(['categories', 'album', 'playlists'])->findOrFail($id);
 
-        $albums = Album::all();
-        $categories = Category::all();
-        $playlists = Playlist::all();
+        $albums = Album::where('user_id', auth()->id())->get();
+        $categories = Category::where('user_id', auth()->id())->get();
+        $playlists = Playlist::where('user_id', auth()->id())->get();
 
         return view('songs.edit', compact('song', 'albums', 'categories', 'playlists'));
 

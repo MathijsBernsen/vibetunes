@@ -11,12 +11,12 @@ class PlaylistController extends Controller
 
     public function index()
     {
-        return view('playlists.index', ['playlists' => Playlist::with('songs')->get()]);
+        return view('playlists.index', ['playlists' => Playlist::with('songs')->where('user_id', auth()->id())->get()]);
     }
 
     public function create()
     {
-        $songs = Song::all();
+        $songs = Song::where('user_id', auth()->id())->get();
         return view('playlists.create', compact('songs'));
     }
 
@@ -40,7 +40,7 @@ class PlaylistController extends Controller
     public function edit($id)
     {
         $playlist = Playlist::with('songs')->findOrFail($id);
-        $songs = Song::all();
+        $songs = Song::where('user_id', auth()->id())->get();
 
         return view('playlists.edit', compact('playlist', 'songs'));
     }

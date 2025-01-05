@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('duration');
             $table->date ('release_date');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

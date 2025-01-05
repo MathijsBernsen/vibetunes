@@ -14,4 +14,9 @@ class Event extends Model
         'location',
         'ticket_url',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

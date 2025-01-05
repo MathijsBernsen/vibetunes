@@ -13,7 +13,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        return view('albums.index' , ['albums' => Album::with('songs')->get()]);
+        return view('albums.index' , ['albums' => Album::with('songs')->where('user_id', auth()->id())->get()]);
     }
 
     /**
@@ -22,7 +22,7 @@ class AlbumController extends Controller
     public function create()
     {
 
-        $songs = Song::all();
+        $songs = Song::where('user_id', auth()->id())->get();
 
         return view('albums.create', compact('songs'));
     }
@@ -55,7 +55,7 @@ class AlbumController extends Controller
     public function edit(string $id)
     {
         $album = Album::with('songs')->findOrFail($id);
-        $songs = Song::all();
+        $songs = Song::where('user_id', auth()->id())->get();
 
 
         return view('albums.edit', compact('album', 'songs'));

@@ -20,5 +20,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make(env('DEFAULT_USER_PASSWORD', 'password')),
         ]);
 
+        User::factory()->count(10)->create();
+
     }
 }

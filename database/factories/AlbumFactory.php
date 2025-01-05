@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Album;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,6 +24,7 @@ class AlbumFactory extends Factory
         return [
             'name' => $this->faker->name,
             'duration' => $this->faker->randomNumber(2),
+            'user_id' => User::inRandomOrder()->first()->id ?? User::factory(),
             'release_date' => $this->faker->date(),
         ];
     }

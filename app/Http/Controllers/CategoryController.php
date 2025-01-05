@@ -11,12 +11,12 @@ class CategoryController extends Controller
 
     public function index()
     {
-        return view('categories.index', ['categories' => Category::with('songs')->get()]);
+        return view('categories.index', ['categories' => Category::with('songs')->where('user_id', auth()->id())->get()]);
     }
 
     public function create()
     {
-        $songs = Song::all();
+        $songs = Song::where('user_id', auth()->id())->get();
         return view('categories.create', compact('songs'));
     }
 
@@ -45,7 +45,7 @@ class CategoryController extends Controller
             return redirect()->route('categories.index')->with('error', 'Category not found');
         }
 
-        $songs = Song::all();
+        $songs = Song::where('user_id', auth()->id())->get();
 
         return view('categories.edit', compact('category', 'songs'));
     }

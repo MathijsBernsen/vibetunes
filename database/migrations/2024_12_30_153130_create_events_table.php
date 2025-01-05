@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('location');
             $table->string('ticket_url')->nullable();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

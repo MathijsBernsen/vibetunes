@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('playlists', PLaylistController::class)->except(['show']);
     Route::resource('categories', CategoryController::class)->except(['show']);
     Route::resource('events', EventController::class)->except(['show']);
+
 });
 
 

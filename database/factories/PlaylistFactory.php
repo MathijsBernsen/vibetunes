@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Playlist;
 use App\Models\Song;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,6 +25,7 @@ class PlaylistFactory extends Factory
         return [
             'name' => $this->faker->name,
             'total_duration' => $this->faker->randomNumber(2),
+            'user_id' => User::inRandomOrder()->first()->id ?? User::factory(),
         ];
     }
 

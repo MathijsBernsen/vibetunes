@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Album;
 use App\Models\Category;
 use App\Models\Song;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -25,8 +26,9 @@ class SongFactory extends Factory
         return [
             'name' => $this->faker->name,
             'duration' => $this->faker->randomNumber(2),
-            'album_id' => Album::inRandomOrder()->first()->id ?? Album::factory(),
             'release_date' => $this->faker->date(),
+            'album_id' => Album::inRandomOrder()->first()->id ?? Album::factory(),
+            'user_id' => User::inRandomOrder()->first()->id ?? User::factory(),
         ];
     }
 

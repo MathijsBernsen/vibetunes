@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('total_duration')->nullable();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

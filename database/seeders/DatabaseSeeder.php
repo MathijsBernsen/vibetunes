@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             SongSeeder::class,
             PlaylistSeeder::class,
             EventSeeder::class,
+            CommentSeeder::class,
         ]);
     }
 }

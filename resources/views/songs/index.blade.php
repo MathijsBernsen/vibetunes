@@ -19,7 +19,7 @@
             @endif
 
 
-            <div class="flex items-center justify-between p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <div class="flex items-center justify-between p-4 sm:p-8 bg-white shadow sm:rounded-lg dark:bg-gray-800 dark:text-gray-200">
                 <h1 class="text-2xl font-bold">Songs</h1>
                 <a href="{{ route('songs.create') }}"
                    class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded">
@@ -30,12 +30,12 @@
             <!-- Songs List -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($songs as $song)
-                    <div class="p-6 bg-white shadow sm:rounded-lg">
+                    <div class="p-6 bg-white shadow sm:rounded-lg dark:bg-gray-800 dark:text-gray-200">
                         <h2 class="text-lg font-semibold text-indigo-600">{{ $song->name }}</h2>
-                        <p class="text-gray-700">
+                        <p class="text-gray-700 dark:text-gray-200">
                             <strong>Album:</strong> {{ $song->album->name ?? 'No Album' }}
                         </p>
-                        <p class="text-gray-700">
+                        <p class="text-gray-700 dark:text-gray-200">
                             <strong>Categories:</strong>
                             @forelse($song->categories as $category)
                                 {{ $category->name }}{{ !$loop->last ? ', ' : '' }}
@@ -43,13 +43,17 @@
                                 None
                             @endforelse
                         </p>
-                        <p class="text-gray-700">
+                        <p class="text-gray-700 dark:text-gray-200">
                             <strong>Playlists:</strong>
                             @forelse($song->playlists as $playlist)
                                 {{ $playlist->name }}{{ !$loop->last ? ', ' : '' }}
                             @empty
                                 None
                             @endforelse
+                        </p>
+                        <p class="text-gray-700 dark:text-gray-200">
+                            <strong>Amount comments:</strong>
+                            {{ count($song->comments) }}
                         </p>
                         <div class="mt-4">
 

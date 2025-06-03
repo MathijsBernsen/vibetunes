@@ -16,7 +16,7 @@ class SongController extends Controller
      */
     public function index()
     {
-        return view('songs.index', ['songs' => Song::with(['categories', 'album', 'playlists'])->where('user_id', auth()->id())->get()]);
+        return view('songs.index', ['songs' => Song::with(['categories', 'album', 'playlists', 'comments'])->where('user_id', auth()->id())->get()]);
     }
 
     /**
@@ -40,6 +40,7 @@ class SongController extends Controller
     {
 
         $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
             'name' => 'required|string|max:255',
             'duration' => 'required|integer',
             'album_id' => 'required|exists:albums,id',
@@ -49,6 +50,9 @@ class SongController extends Controller
             'playlists' => 'array',
             'playlists.*' => 'exists:playlists,id',
         ]);
+
+        $validated['user_id'] = auth()->id();
+        dump($validated);
 
         $song = Song::create($validated);
 

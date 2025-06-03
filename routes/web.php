@@ -17,15 +17,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Add the following CRUD routes
-    Route::resource('songs', SongController::class)->except(['show']);
-    Route::resource('albums', AlbumController::class)->except(['show']);
-    Route::resource('playlists', PLaylistController::class)->except(['show']);
-    Route::resource('categories', CategoryController::class)->except(['show']);
-    Route::resource('events', EventController::class)->except(['show']);
+    // Routes for regular users
+    Route::resource('playlists', PlaylistController::class)->except(['show']);
+    Route::resource('categories', CategoryController::class)->only(['index', 'show']);
+    Route::resource('events', EventController::class)->only(['index', 'show']);
+    Route::resource('songs', SongController::class)->only(['index', 'show']);
+    Route::resource('albums', AlbumController::class)->only(['index', 'show']);
 
+    // Define routes only for artists with middleware: "CheckRolePermissions"
 });
-
-
 
 require __DIR__.'/auth.php';

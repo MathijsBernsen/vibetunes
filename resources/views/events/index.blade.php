@@ -19,7 +19,7 @@
                 </div>
             @endif
 
-            <div class="flex items-center justify-between p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <div class="flex items-center justify-between p-4 sm:p-8 bg-white shadow sm:rounded-lg dark:bg-gray-800 dark:text-gray-200">
                 <h1 class="text-2xl font-bold">Events</h1>
                 <a href="{{ route('events.create') }}"
                    class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded">
@@ -30,12 +30,12 @@
             <!-- Events List -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($events as $event)
-                    <div class="p-6 bg-white shadow sm:rounded-lg">
+                    <div class="p-6 bg-white shadow sm:rounded-lg dark:bg-gray-800 dark:text-gray-200">
                         <h2 class="text-lg font-semibold text-indigo-600">{{ $event->name }}</h2>
-                        <p class="text-gray-700">
+                        <p class="text-gray-700 dark:text-gray-200">
                             <strong>Location:</strong> {{ $event->location }}
                         </p>
-                        <p class="text-gray-700">
+                        <p class="text-gray-700 dark:text-gray-200">
                             <strong>Tickets:</strong> <a href="{{ $event->ticket_url }}" target="_blank" class="text-indigo-600 hover:underline">Tickets here</a>                        </p>
                         <div class="mt-4">
 

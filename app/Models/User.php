@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -46,6 +47,16 @@ class User extends Authenticatable
         ];
     }
 
+    public function isArtist(): bool
+    {
+        return $this->role === 'artist';
+    }
+
+    public function isUser(): bool
+    {
+        return $this->role === 'user';
+    }
+
     public function playlists()
     {
         return $this->hasMany(Playlist::class);
@@ -69,6 +80,11 @@ class User extends Authenticatable
     public function categories()
     {
         return $this->hasMany(Category::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
 

@@ -13,7 +13,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        return view('albums.index' , ['albums' => Album::with('songs')->where('user_id', auth()->id())->get()]);
+        return view('albums.index' , ['albums' => Album::with('songs', 'comments')->where('user_id', auth()->id())->get()]);
     }
 
     /**
@@ -39,6 +39,9 @@ class AlbumController extends Controller
             'songs' => 'array',
             'songs.*' => 'exists:songs,id',
         ]);
+
+        // Attach the current user's ID
+        $validated['user_id'] = auth()->id();
 
         $album = Album::create($validated);
 

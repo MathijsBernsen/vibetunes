@@ -19,7 +19,7 @@
             @endif
 
 
-            <div class="flex items-center justify-between p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <div class="flex items-center justify-between p-4 sm:p-8 bg-white shadow sm:rounded-lg dark:bg-gray-800 dark:text-gray-200">
                 <h1 class="text-2xl font-bold">Playlists</h1>
                 <a href="{{ route('playlists.create') }}"
                    class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded">
@@ -30,12 +30,12 @@
             <!-- Playlists List -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($playlists as $playlist)
-                    <div class="p-6 bg-white shadow sm:rounded-lg">
+                    <div class="p-6 bg-white shadow sm:rounded-lg dark:bg-gray-800 dark:text-gray-200">
                         <h2 class="text-lg font-semibold text-indigo-600">{{ $playlist->name }}</h2>
-                        <p class="text-gray-700">
+                        <p class="text-gray-700 dark:text-gray-200">
                             <strong>Duration:</strong> {{ $playlist->total_duration . " minutes" ?? 'Unknown' }}
                         </p>
-                        <p class="text-gray-700">
+                        <p class="text-gray-700 dark:text-gray-200">
                             <strong>Songs:</strong>
                             @forelse($playlist->songs as $song)
                                 {{ $song->name }}{{ !$loop->last ? ', ' : '' }}

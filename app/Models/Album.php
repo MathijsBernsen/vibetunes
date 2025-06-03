@@ -9,7 +9,7 @@ class Album extends Model
 {
     use hasFactory;
 
-    protected $fillable = ['name', 'duration', 'release_date'];
+    protected $fillable = ['name', 'duration', 'release_date', 'user_id'];
 
     public function songs()
     {
@@ -19,5 +19,10 @@ class Album extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

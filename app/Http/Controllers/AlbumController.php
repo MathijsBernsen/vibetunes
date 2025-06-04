@@ -13,7 +13,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        return view('albums.index' , ['albums' => Album::with('songs', 'comments')->where('user_id', auth()->id())->get()]);
+        return view('albums.index' , ['albums' => Album::with('songs', 'comments')->get()]);
     }
 
     /**
@@ -21,9 +21,7 @@ class AlbumController extends Controller
      */
     public function create()
     {
-
         $songs = Song::where('user_id', auth()->id())->get();
-
         return view('albums.create', compact('songs'));
     }
 
@@ -58,6 +56,11 @@ class AlbumController extends Controller
     public function edit(string $id)
     {
         $album = Album::with('songs')->findOrFail($id);
+
+        if ($album->user_id !== auth()->id()) {
+            return redirect()->route('albums.index')->with('error', 'You can only edit your own albums');
+        }
+
         $songs = Song::where('user_id', auth()->id())->get();
 
 
@@ -110,6 +113,10 @@ class AlbumController extends Controller
 
         if ($album === null) {
             return redirect()->route('albums.index')->with('error', 'Album not found');
+        }
+
+        if ($album->user_id !== auth()->id()) {
+            return redirect()->route('albums.index')->with('error', 'You can only delete your own albums');
         }
 
 

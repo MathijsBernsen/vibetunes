@@ -16,7 +16,7 @@ class PlaylistController extends Controller
 
     public function create()
     {
-        $songs = Song::where('user_id', auth()->id())->get();
+        $songs = Song::all();
         return view('playlists.create', compact('songs'));
     }
 
@@ -40,7 +40,7 @@ class PlaylistController extends Controller
     public function edit($id)
     {
         $playlist = Playlist::with('songs')->findOrFail($id);
-        $songs = Song::where('user_id', auth()->id())->get();
+        $songs = Song::all();
 
         return view('playlists.edit', compact('playlist', 'songs'));
     }

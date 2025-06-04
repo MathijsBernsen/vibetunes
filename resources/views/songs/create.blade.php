@@ -15,7 +15,6 @@
                         <input type="text" name="name" id="name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-400 dark:placeholder-gray-400">
                     </div>
 
-
                     <!-- Duration -->
                     <div class="mb-4">
                         <label for="duration" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Duration (minutes)</label>
@@ -31,7 +30,7 @@
                     <!-- Album -->
                     <div class="mb-4">
                         <label for="album_id" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Album</label>
-                        <select name="album_id" id="album_id" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-400 dark:placeholder-gray-400">
+                        <select name="album_id" id="album_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-400 dark:placeholder-gray-400">
                             <option value="">Select an Album</option>
                             @foreach ($albums as $album)
                                 <option value="{{ $album->id }}">{{ $album->name }}</option>
@@ -45,16 +44,6 @@
                         <select name="categories[]" id="categories" multiple class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-400 dark:placeholder-gray-400">
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <!-- Playlists -->
-                    <div class="mb-4">
-                        <label for="playlists" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Playlists</label>
-                        <select name="playlists[]" id="playlists" multiple class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-400 dark:placeholder-gray-400">
-                            @foreach ($playlists as $playlist)
-                                <option value="{{ $playlist->id }}">{{ $playlist->name }}</option>
                             @endforeach
                         </select>
                     </div>

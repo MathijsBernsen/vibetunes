@@ -10,37 +10,28 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('songs.index')" :active="request()->routeIs('songs.index')">
-                        {{ __('Songs') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('albums.index')" :active="request()->routeIs('albums.index')">
-                        {{ __('Albums') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('playlists.index')" :active="request()->routeIs('playlists.index')">
-                        {{ __('Playlists') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
-                        {{ __('Categories') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.index')">
-                        {{ __('Events') }}
-                    </x-nav-link>
-                    <button @click="darkMode = !darkMode" class="rounded-md p-2 focus:outline-none">
-                        <svg x-show="!darkMode" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                        </svg>
-                        <svg x-show="darkMode" class="h-6 w-6 text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                    </button>
+
+                    <!-- Show these links to everyone -->
+                    <x-nav-link href="{{ route('playlists.index') }}" :active="request()->routeIs('playlists.index')">Playlists</x-nav-link>
+                    <x-nav-link href="{{ route('events.index') }}" :active="request()->routeIs('events.index')">Events</x-nav-link>
+                    <x-nav-link href="{{ route('songs.index') }}" :active="request()->routeIs('songs.index')">Songs</x-nav-link>
+                    <x-nav-link href="{{ route('albums.index') }}" :active="request()->routeIs('albums.index')">Albums</x-nav-link>
+                    @if(auth()->check() && auth()->user()->hasRole('artist'))
+                        <x-nav-link href="{{ route('categories.index') }}" :active="request()->routeIs('categories.index')">Categories</x-nav-link>
+                    @endif
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <button @click="darkMode = !darkMode" class="rounded-md p-2 focus:outline-none">
+                    <svg x-show="!darkMode" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                    <svg x-show="darkMode" class="h-6 w-6 text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                </button>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150

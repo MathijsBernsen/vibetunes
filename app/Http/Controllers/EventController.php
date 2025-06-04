@@ -9,7 +9,7 @@ class EventController extends Controller
 {
     public function index()
     {
-        return view('events.index', ['events' => Event::where('user_id', auth()->id())->get()]);
+        return view('events.index', ['events' => Event::all()]);
     }
 
     public function create()
@@ -37,6 +37,10 @@ class EventController extends Controller
 
         if (!$event) {
             return redirect()->route('events.index')->with('error', 'Event not found');
+        }
+
+        if ($event->user_id !== auth()->id()) {
+            return redirect()->route('events.index')->with('error', 'Unauthorized access');
         }
 
         return view('events.edit', compact('event'));
@@ -67,6 +71,10 @@ class EventController extends Controller
 
         if (!$event) {
             return redirect()->route('events.index')->with('error', 'Event not found');
+        }
+
+        if ($event->user_id !== auth()->id()) {
+            return redirect()->route('events.index')->with('error', 'Unauthorized access');
         }
 
         $event->delete();

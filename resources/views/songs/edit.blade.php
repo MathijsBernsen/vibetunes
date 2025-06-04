@@ -31,7 +31,7 @@
                     <!-- Album -->
                     <div class="mb-4">
                         <label for="album_id" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Album</label>
-                        <select name="album_id" id="album_id" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-400 dark:placeholder-gray-400">
+                        <select name="album_id" id="album_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-400 dark:placeholder-gray-400">
                             <option value="">Select an Album</option>
                             @foreach ($albums as $album)
                                 <option value="{{ $album->id }}" {{ $song->album_id == $album->id ? 'selected' : '' }}>{{ $album->name }}</option>
@@ -45,16 +45,6 @@
                         <select name="categories[]" id="categories" multiple class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-400 dark:placeholder-gray-400">
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}" {{ in_array($category->id, $song->categories->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <!-- Playlists -->
-                    <div class="mb-4">
-                        <label for="playlists" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Playlists</label>
-                        <select name="playlists[]" id="playlists" multiple class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-400 dark:placeholder-gray-400">
-                            @foreach ($playlists as $playlist)
-                                <option value="{{ $playlist->id }}" {{ in_array($playlist->id, $song->playlists->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $playlist->name }}</option>
                             @endforeach
                         </select>
                     </div>

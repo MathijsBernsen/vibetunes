@@ -28,7 +28,7 @@ class SongFactory extends Factory
             'duration' => $this->faker->randomNumber(2),
             'release_date' => $this->faker->date(),
             'album_id' => Album::inRandomOrder()->first()->id ?? Album::factory(),
-            'user_id' => User::inRandomOrder()->first()->id ?? User::factory(),
+            'user_id' => 2 ?? User::factory(),
         ];
     }
 

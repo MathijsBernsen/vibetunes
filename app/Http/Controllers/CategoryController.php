@@ -11,7 +11,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        return view('categories.index', ['categories' => Category::with('songs')->where('user_id', auth()->id())->get()]);
+        return view('categories.index', ['categories' => Category::with('songs')->get()]);
     }
 
     public function create()

@@ -6,6 +6,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SongController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,13 +19,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Routes for regular users
-    Route::resource('playlists', PlaylistController::class)->except(['show']);
-    Route::resource('categories', CategoryController::class)->only(['index', 'show']);
-    Route::resource('events', EventController::class)->only(['index', 'show']);
-    Route::resource('songs', SongController::class)->only(['index', 'show']);
-    Route::resource('albums', AlbumController::class)->only(['index', 'show']);
+    Route::resource('playlists', PlaylistController::class);
+    Route::resource('events', EventController::class)->only(['index']);
+    Route::resource('songs', SongController::class)->only(['index']);
+    Route::resource('albums', AlbumController::class)->only(['index']);
+    Route::resource('comments', CommentController::class)->except(['index']);
 
-    // Define routes only for artists with middleware: "CheckRolePermissions"
+    // Artist-specific routes
+    Route::middleware('CheckRole:artist')->group(function () {
+        Route::resource('songs', SongController::class)->except(['index']);
+        Route::resource('albums', AlbumController::class)->except(['index']);
+        Route::resource('events', EventController::class)->except(['index']);
+        Route::resource('categories', CategoryController::class)->except(['show']);
+    });
+
 });
 
 require __DIR__.'/auth.php';
